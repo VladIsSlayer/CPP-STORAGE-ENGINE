@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/storage.dir/src/main.cpp.o CMakeFiles/storage.dir/src/storage.cpp.o -o storage 

@@ -2,8 +2,10 @@
 #include "storage.h"
 
 int main() {
-    Storage storage;
+    Storage storage("data.db");
 
+    storage.load();
+    
     storage.put("name", "Vlad");
     storage.put("lang", "C++");
 
