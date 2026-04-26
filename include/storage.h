@@ -13,6 +13,7 @@ class Storage {
         void remove(const std::string& key);
         void load();
         void save();
+        void compact();
 
     private:
         std::unordered_map<std::string, std::string> data_;

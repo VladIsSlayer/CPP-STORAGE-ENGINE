@@ -45,3 +45,11 @@ void Storage::load() {
             }
     }
 }
+
+void Storage::compact() {
+    std::ofstream file(filename_, std::ios::trunc);
+    for (const auto& [key, value] : data_)
+    {
+        file << "PUT " << key << " " << value << '\n';
+    }
+}

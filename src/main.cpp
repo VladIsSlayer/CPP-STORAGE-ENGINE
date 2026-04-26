@@ -16,5 +16,8 @@ int main() {
 
     std::cout << "after delete name: " << storage.get("name") << std::endl;
 
+    std::cout << "Compacting..." << std::endl;
+    storage.compact();
+
     return 0;
 }
