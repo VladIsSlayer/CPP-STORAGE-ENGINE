@@ -33,3 +33,8 @@ class Storage {
         std::thread worker_;
         bool stop_ = false;
 };
+
+class LinuxFileWriter{
+    private:
+        LinuxFileWriter* writer_;
+};
