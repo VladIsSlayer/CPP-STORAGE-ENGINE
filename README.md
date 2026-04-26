@@ -32,10 +32,10 @@
 - `EXIT` — выход
 
 Сбор проекта : 
-cd build
-cmake ..
-make
-./storage
+- cd build
+- cmake ..
+- make
+- ./storage
 
 ---
 
