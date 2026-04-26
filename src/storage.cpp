@@ -4,15 +4,51 @@
 #include <shared_mutex>
 
 Storage::Storage(const std::string& filename)
-    : filename_(filename) {}
+    : filename_(filename) {
+
+        worker_ = std::thread([this]() {
+            std::ofstream file(filename_, std::ios::app);
+
+            while (true) {
+                std::unique_lock<std::mutex> lock(queue_mutex_);
+
+                cv_.wait(lock, [this]() {
+                    return ! write_queue_.empty() || stop_;
+                });
+
+                while (!write_queue_.empty())
+                {
+                    file << write_queue_.front() << "\n";
+                    write_queue_.pop();
+                }
+
+                if (stop_) break;
+            }
+        });
+    }
+
+Storage::~Storage() {
+    {
+    std::lock_guard<std::mutex> lock(queue_mutex_);
+    stop_ = true;
+    }
+
+    cv_.notify_all();
+    worker_.join();
+}
+
 
 void Storage::put(const std::string& key, const std::string& value) {
     std::unique_lock<std::shared_mutex>lock(mutex_);
     
     data_[key] = value;
 
-    std::ofstream file(filename_, std::ios::app);
-    file << "PUT " << key << " " << value << "\n";
+    {
+        std::lock_guard<std::mutex> qlock(queue_mutex_);
+        write_queue_.push("PUT " + key + " " + value);
+    }
+
+    cv_.notify_one();
 }
 
 std::string Storage::get(const std::string& key) {
@@ -30,8 +66,12 @@ void Storage::remove(const std::string& key) {
 
     data_.erase(key);
 
-    std::ofstream file(filename_, std::ios::app);
-    file << "DEL " << key << "\n";
+    {
+        std::lock_guard<std::mutex> qlock(queue_mutex_);
+        write_queue_.push("DEL " + key);
+    }
+
+    cv_.notify_one();
 }
 
 void Storage::save() {
@@ -59,6 +99,8 @@ void Storage::load() {
             data_[key] = value;
         } else if (command == "DEL") {
             data_.erase(key);
+        } else if (command == "CLEAR") {
+            data_.clear();
         }
     }
 }
@@ -72,4 +114,21 @@ void Storage::compact() {
     {
         file << "PUT " << key << " " << value << '\n';
     }
+}
+
+void Storage::clear() {
+    std::unique_lock<std::shared_mutex> lock(mutex_);
+
+    data_.clear();
+
+    {
+        std::lock_guard<std::mutex> qlock(queue_mutex_);
+        write_queue_.push("CLEAR");
+    }
+    cv_.notify_one();
+}
+
+std::unordered_map<std::string, std::string> Storage::get_all() {
+    std::shared_lock<std::shared_mutex> lock(mutex_);
+    return data_;
 }

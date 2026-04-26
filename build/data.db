@@ -1,1 +1,11 @@
 PUT lang C++
+PUT name Vlad
+PUT lang C++
+DEL name
+PUT exampleK exampleV
+CLEAR
+PUT ExampleK ExampleV
+PUT 1 2
+PUT 1 2
+DEL 1
+CLEAR
