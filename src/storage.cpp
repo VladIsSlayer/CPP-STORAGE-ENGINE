@@ -1,39 +1,16 @@
 #include "storage.h"
 #include <fstream>
+#include <mutex>
 #include <sstream>
 #include <shared_mutex>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include "linux_file_writer.h"
 
-class LinuxFileWriter {
-    public:
-        LinuxFileWriter(const std::string& file) {
-            fd_ = open(file.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0644);
-        }
-
-        ~LinuxFileWriter() {
-            if (fd_ != -1) close(fd_);
-        }
-
-        void write_line(const std::string& line) {
-            if (fd_ == -1) return;
-
-            write(fd_, line.c_str(), line.size());
-            write(fd_, "\n", 1);
-        }
-
-        private:
-            int fd_ = -1;
-};
 
 Storage::Storage(const std::string& filename)
     : filename_(filename) {
 
         worker_ = std::thread([this]() {
-            std::ofstream file(filename_, std::ios::app);
+            LinuxFileWriter writer(filename_);
 
             while (true) {
                 std::unique_lock<std::mutex> lock(queue_mutex_);
@@ -44,7 +21,7 @@ Storage::Storage(const std::string& filename)
 
                 while (!write_queue_.empty())
                 {
-                    file << write_queue_.front() << "\n";
+                    writer.write_line(write_queue_.front());
                     write_queue_.pop();
                 }
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <fcntl.h>
 #include <unistd.h>
 #include <string>
@@ -13,7 +15,7 @@ class LinuxFileWriter {
         }
 
         void write_line(const std::string& line) {
-            if (fd_ == -1) close(fd_);
+            if (fd_ == -1) return;
 
             write(fd_, line.c_str(), line.size());
             write(fd_, "\n", 1);
@@ -22,4 +24,4 @@ class LinuxFileWriter {
     private:
         int fd_ = -1;
 
-}
+};

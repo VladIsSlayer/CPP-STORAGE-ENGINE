@@ -34,7 +34,3 @@ class Storage {
         bool stop_ = false;
 };
 
-class LinuxFileWriter{
-    private:
-        LinuxFileWriter* writer_;
-};
