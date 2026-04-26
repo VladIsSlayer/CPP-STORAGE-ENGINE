@@ -9,4 +9,5 @@ include_directories(include)
 add_executable(storage
     src/main.cpp
     src/storage.cpp
+    src/benchmark.cpp
 )

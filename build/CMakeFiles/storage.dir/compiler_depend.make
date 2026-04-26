@@ -89,6 +89,7 @@ CMakeFiles/storage.dir/src/main.cpp.o: /home/vboxuser/projects/cpp-storage-engin
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/condition_variable \
   /usr/include/c++/13/cstddef \
@@ -234,6 +235,7 @@ CMakeFiles/storage.dir/src/main.cpp.o: /home/vboxuser/projects/cpp-storage-engin
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-engine/src/storage.cpp \
+  /home/vboxuser/projects/cpp-storage-engine/include/linux_file_writer.h \
   /home/vboxuser/projects/cpp-storage-engine/include/storage.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -371,9 +373,12 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
+  /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/falloc.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
   /usr/include/sched.h \
@@ -382,26 +387,35 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
   /usr/include/time.h \
+  /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
   /usr/include/x86_64-linux-gnu/asm/errno.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/x86_64-linux-gnu/bits/locale.h \
   /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+  /usr/include/x86_64-linux-gnu/bits/stat.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
@@ -409,6 +423,7 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/time64.h \
@@ -431,6 +446,7 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
@@ -441,6 +457,7 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -473,6 +490,18 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
+
+/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/linux/close_range.h:
+
+/usr/include/fcntl.h:
 
 /usr/include/c++/13/bits/fstream.tcc:
 
@@ -532,6 +561,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
+/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
@@ -545,6 +576,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/unistd.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
@@ -598,6 +631,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/vector:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
+
 /usr/include/c++/13/unordered_map:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
@@ -614,6 +649,12 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/bits/refwrap.h:
 
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/c++/13/bits/range_access.h:
+
 /usr/include/c++/13/debug/debug.h:
 
 /usr/include/c++/13/stdexcept:
@@ -628,6 +669,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/bits/basic_ios.h:
 
+/home/vboxuser/projects/cpp-storage-engine/include/linux_file_writer.h:
+
 /usr/include/c++/13/bits/parse_numbers.h:
 
 /usr/include/c++/13/bits/stl_heap.h:
@@ -635,6 +678,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/time.h:
 
 /usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
 /usr/include/c++/13/bits/invoke.h:
 
@@ -671,6 +716,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/c++/13/streambuf:
 
 /usr/include/c++/13/bits/exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
 /usr/include/c++/13/typeinfo:
 
@@ -711,6 +758,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/errno.h:
 
 /usr/include/c++/13/bits/functional_hash.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_stat.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
@@ -860,6 +909,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/bits/uses_allocator_args.h:
 
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
+
 /usr/include/c++/13/bits/stl_function.h:
 
 /usr/include/c++/13/bits/utility.h:
@@ -875,6 +926,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
 /usr/include/c++/13/cerrno:
+
+/usr/include/c++/13/chrono:
 
 /usr/include/c++/13/bits/allocated_ptr.h:
 
@@ -906,6 +959,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/ext/atomicity.h:
 
+/usr/include/linux/falloc.h:
+
 /usr/include/c++/13/ext/concurrence.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
@@ -930,6 +985,8 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 
 /usr/include/c++/13/ratio:
 
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
 /usr/include/c++/13/bits/streambuf_iterator.h:
 
 /usr/include/c++/13/ostream:
@@ -937,9 +994,3 @@ CMakeFiles/storage.dir/src/storage.cpp.o: /home/vboxuser/projects/cpp-storage-en
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/c++/13/pstl/pstl_config.h:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/c++/13/bits/range_access.h:
-
-/usr/include/c++/13/system_error:

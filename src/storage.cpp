@@ -77,16 +77,10 @@ void Storage::remove(const std::string& key) {
     cv_.notify_one();
 }
 
-void Storage::save() {
-    std::ofstream file(filename_);
-
-    for (const auto& [key, value] : data_) {
-        file << key << "=" << value << '\n';
-    }
-}
-
 void Storage::load() {
     std::unique_lock<std::shared_mutex> lock(mutex_);
+    
+    data_.clear();
 
     std::ifstream file(filename_);
     std::string line;

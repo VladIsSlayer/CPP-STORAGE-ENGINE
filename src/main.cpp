@@ -1,6 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include "storage.h"
+#include <chrono>
+#include "storage.h"
+
+void benchmark_put(Storage& storage, int n);
+void benchmark_get(Storage& storage, int n);
 
 int main() {
     Storage storage("data.db");
@@ -8,7 +13,7 @@ int main() {
     storage.load();
     
     std::cout << "Simple Storage CLI\n";
-    std::cout << "Command: PUT key value | GET key | DEL key | ALL | CLEAR | EXIT\n";
+    std::cout << "Command: PUT key value | GET key | DEL key | ALL | CLEAR | BENCH | EXIT\n";
 
     std::string line;
 
@@ -54,6 +59,15 @@ int main() {
             for (const auto& [key, value] : all) {
                 std::cout << key << " = " << value << "\n";
             }
+        }
+        else if (command == "BENCH"){
+            int n = 10000;
+
+            Storage temp("bench.db");
+            temp.load();
+
+            benchmark_put(temp, n);
+            benchmark_get(temp, n);
         }
         else {
             std::cout << "Unknown command\n";
