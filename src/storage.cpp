@@ -1,13 +1,14 @@
 #include "storage.h"
 #include <fstream>
 #include <sstream>
+#include <shared_mutex>
 
 Storage::Storage(const std::string& filename)
     : filename_(filename) {}
 
 void Storage::put(const std::string& key, const std::string& value) {
-    std::lock_guard<std::mutex>lock(mutex_);
-
+    std::unique_lock<std::shared_mutex>lock(mutex_);
+    
     data_[key] = value;
 
     std::ofstream file(filename_, std::ios::app);
@@ -15,7 +16,7 @@ void Storage::put(const std::string& key, const std::string& value) {
 }
 
 std::string Storage::get(const std::string& key) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::shared_mutex> lock(mutex_);
 
     auto it = data_.find(key);
     if (it != data_.end()) {
@@ -25,7 +26,7 @@ std::string Storage::get(const std::string& key) {
 }
 
 void Storage::remove(const std::string& key) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
 
     data_.erase(key);
 
@@ -42,7 +43,7 @@ void Storage::save() {
 }
 
 void Storage::load() {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
 
     std::ifstream file(filename_);
     std::string line;
@@ -56,9 +57,6 @@ void Storage::load() {
         if (command == "PUT") {
             iss >> value;
             data_[key] = value;
-        } else if (command == "PUT") {
-            iss >> value;
-            data_[key] = value;
         } else if (command == "DEL") {
             data_.erase(key);
         }
@@ -66,9 +64,10 @@ void Storage::load() {
 }
 
 void Storage::compact() {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::shared_mutex> lock(mutex_);
 
     std::ofstream file(filename_, std::ios::trunc);
+    
     for (const auto& [key, value] : data_)
     {
         file << "PUT " << key << " " << value << '\n';
