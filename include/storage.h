@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <mutex>
 
 class Storage {
 
@@ -18,4 +19,5 @@ class Storage {
     private:
         std::unordered_map<std::string, std::string> data_;
         std::string filename_;
+        std::mutex mutex_;
 };
